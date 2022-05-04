@@ -4,8 +4,11 @@ import { HardhatUserConfig } from "hardhat/config";
 import "@typechain/hardhat";
 import '@nomiclabs/hardhat-ethers';
 import "tsconfig-paths/register";
+import path from "path";
 
-dotenv.config();
+dotenv.config({
+  'path': path.resolve(__dirname, ".env.dev")
+});
 
 const config: HardhatUserConfig = {
   solidity: {

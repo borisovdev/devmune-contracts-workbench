@@ -1,15 +1,17 @@
 import * as dotenv from 'dotenv';
 import { ethers } from 'hardhat';
-
+import path from 'path';
 
 async function main() {
-  dotenv.config();
+  dotenv.config({
+    'path': path.resolve(__dirname, ".env.dev")
+  });
 
   const SimpleStorageContract = await ethers.getContractFactory("SimpleStorage");
   const simpleStorageContract = await SimpleStorageContract.deploy();
 
-  await simpleStorageContract.deployed();
-  process.stdout.write("contract deployed");
+  const compiled = await simpleStorageContract.deployed();
+  process.stdout.write(`Contrat deployed successful on address ${compiled.address}. \n`);
 }
 
 main()
