@@ -1,17 +1,28 @@
 import * as dotenv from 'dotenv';
 import { ethers } from 'hardhat';
 import path from 'path';
+import { getSuccessfulDeployMessage } from '../utils/deployMessages';
 
 async function main() {
   dotenv.config({
-    'path': path.resolve(__dirname, ".env.dev")
+    'path': path.resolve(__dirname, '../', ".env.dev")
   });
 
-  const SimpleStorageContract = await ethers.getContractFactory("SimpleStorage");
-  const simpleStorageContract = await SimpleStorageContract.deploy();
+  // just for debug
+  const simpleStorageContractFactory = await ethers.getContractFactory("SimpleStorage");
+  const simpleStorageContract = await simpleStorageContractFactory.deploy();
+  const simpleStorageDeployedContract = await simpleStorageContract.deployed();
+  process.stdout.write(getSuccessfulDeployMessage("SimpleStorage", simpleStorageDeployedContract));
 
-  const compiled = await simpleStorageContract.deployed();
-  process.stdout.write(`Contrat deployed successful on address ${compiled.address}. \n`);
+  const linkTokenContractFactory = await ethers.getContractFactory("LinkToken");
+  const linkTokenContract = await linkTokenContractFactory.deploy();
+  const linkTokenDeployedContract = await linkTokenContract.deployed();
+  process.stdout.write(getSuccessfulDeployMessage("LinkToken", linkTokenDeployedContract));
+
+  const oracleContractFactory = await ethers.getContractFactory("Oracle");
+  const oracleContract = await oracleContractFactory.deploy(linkTokenDeployedContract.address);
+  const oracleDeployedContract = await oracleContract.deployed();
+  process.stdout.write(getSuccessfulDeployMessage("Oracle", oracleDeployedContract));
 }
 
 main()
