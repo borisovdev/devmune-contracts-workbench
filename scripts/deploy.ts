@@ -14,20 +14,20 @@ async function main() {
   // const simpleStorageDeployedContract = await simpleStorageContract.deployed();
   // process.stdout.write(getSuccessfulDeployMessage("SimpleStorage", simpleStorageDeployedContract));
 
-  // const linkTokenContractFactory = await ethers.getContractFactory("ALocalNetLinkToken");
-  // const linkTokenContract = await linkTokenContractFactory.deploy();
-  // const linkTokenDeployedContract = await linkTokenContract.deployed();
-  // process.stdout.write(getSuccessfulDeployMessage("ALocalNetLinkToken", linkTokenDeployedContract));
+  const linkTokenContractFactory = await ethers.getContractFactory("ALocalNetLinkToken");
+  const linkTokenContract = await linkTokenContractFactory.deploy();
+  const linkTokenDeployedContract = await linkTokenContract.deployed();
+  process.stdout.write(getSuccessfulDeployMessage("ALocalNetLinkToken", linkTokenDeployedContract));
 
-  // const oracleContractFactory = await ethers.getContractFactory("Oracle");
-  // const oracleContract = await oracleContractFactory.deploy(linkTokenDeployedContract.address);
-  // const oracleDeployedContract = await oracleContract.deployed();
-  // process.stdout.write(getSuccessfulDeployMessage("Oracle", oracleDeployedContract));
+  const oracleContractFactory = await ethers.getContractFactory("Oracle");
+  const oracleContract = await oracleContractFactory.deploy(linkTokenDeployedContract.address);
+  const oracleDeployedContract = await oracleContract.deployed();
+  process.stdout.write(getSuccessfulDeployMessage("Oracle", oracleDeployedContract));
 
-  const testConsumerContractFactory = await ethers.getContractFactory("TestOracleHttp");
-  const testConsumerContract = await testConsumerContractFactory.deploy();
-  const testConsumerDeployedContract = await testConsumerContract.deployed();
-  process.stdout.write(getSuccessfulDeployMessage("TestOracleHttp", testConsumerDeployedContract));
+  // const testConsumerContractFactory = await ethers.getContractFactory("TestOracleHttp");
+  // const testConsumerContract = await testConsumerContractFactory.deploy();
+  // const testConsumerDeployedContract = await testConsumerContract.deployed();
+  // process.stdout.write(getSuccessfulDeployMessage("TestOracleHttp", testConsumerDeployedContract));
 }
 
 main()

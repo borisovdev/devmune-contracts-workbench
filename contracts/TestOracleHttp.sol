@@ -13,7 +13,8 @@ contract TestOracleHttp is ChainlinkClient {
   uint256 private fee;
 
   constructor() {
-    setPublicChainlinkToken();
+    // setPublicChainlinkToken();
+    setChainlinkToken(0x9Aa23BcdB51785e79EaFF318E7Db61B0befbd905);
     oracle = 0xE86210795efD4896996bf3e498787fd09A112C58;
     jobId = "39189df980d547e39e06390f21ecbcc0";
     fee = 0.1 * 10 ** 18;
