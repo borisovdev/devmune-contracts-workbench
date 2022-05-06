@@ -17,8 +17,8 @@ import { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
 import { Listener, Provider } from "@ethersproject/providers";
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
 
-export interface LinkTokenInterface extends utils.Interface {
-  contractName: "LinkToken";
+export interface ALocalNetLinkTokenInterface extends utils.Interface {
+  contractName: "ALocalNetLinkToken";
   functions: {
     "name()": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
@@ -26,6 +26,7 @@ export interface LinkTokenInterface extends utils.Interface {
     "transferFrom(address,address,uint256)": FunctionFragment;
     "decimals()": FunctionFragment;
     "transferAndCall(address,uint256,bytes)": FunctionFragment;
+    "LinkToken()": FunctionFragment;
     "addTokensToAddress(address,uint256)": FunctionFragment;
     "decreaseApproval(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
@@ -53,6 +54,7 @@ export interface LinkTokenInterface extends utils.Interface {
     functionFragment: "transferAndCall",
     values: [string, BigNumberish, BytesLike]
   ): string;
+  encodeFunctionData(functionFragment: "LinkToken", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "addTokensToAddress",
     values: [string, BigNumberish]
@@ -91,6 +93,7 @@ export interface LinkTokenInterface extends utils.Interface {
     functionFragment: "transferAndCall",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "LinkToken", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "addTokensToAddress",
     data: BytesLike
@@ -140,13 +143,13 @@ export type ApprovalEvent = TypedEvent<
 
 export type ApprovalEventFilter = TypedEventFilter<ApprovalEvent>;
 
-export interface LinkToken extends BaseContract {
-  contractName: "LinkToken";
+export interface ALocalNetLinkToken extends BaseContract {
+  contractName: "ALocalNetLinkToken";
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: LinkTokenInterface;
+  interface: ALocalNetLinkTokenInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -191,6 +194,10 @@ export interface LinkToken extends BaseContract {
       _to: string,
       _value: BigNumberish,
       _data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    LinkToken(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -258,6 +265,10 @@ export interface LinkToken extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  LinkToken(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   addTokensToAddress(
     _to: string,
     _value: BigNumberish,
@@ -318,6 +329,8 @@ export interface LinkToken extends BaseContract {
       _data: BytesLike,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    LinkToken(overrides?: CallOverrides): Promise<void>;
 
     addTokensToAddress(
       _to: string,
@@ -406,6 +419,10 @@ export interface LinkToken extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    LinkToken(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     addTokensToAddress(
       _to: string,
       _value: BigNumberish,
@@ -465,6 +482,10 @@ export interface LinkToken extends BaseContract {
       _to: string,
       _value: BigNumberish,
       _data: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    LinkToken(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
