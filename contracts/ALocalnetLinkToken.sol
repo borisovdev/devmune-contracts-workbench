@@ -4,7 +4,7 @@ pragma solidity ^0.4.11;
 import "@chainlink/contracts/src/v0.4/ERC677Token.sol";
 import { StandardToken as linkStandardToken } from "@chainlink/contracts/src/v0.4/vendor/StandardToken.sol";
 
-contract ALocalNetLinkToken is linkStandardToken, ERC677Token {
+contract ALocalnetLinkToken is linkStandardToken, ERC677Token {
 
   uint public constant totalSupply = 10**27;
   string public constant name = "ChainLink Token";

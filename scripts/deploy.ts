@@ -8,26 +8,20 @@ async function main() {
     'path': path.resolve(__dirname, '../', ".env.dev")
   });
 
-  // just for debug
-  // const simpleStorageContractFactory = await ethers.getContractFactory("SimpleStorage");
-  // const simpleStorageContract = await simpleStorageContractFactory.deploy();
-  // const simpleStorageDeployedContract = await simpleStorageContract.deployed();
-  // process.stdout.write(getSuccessfulDeployMessage("SimpleStorage", simpleStorageDeployedContract));
+  const localnetLinkTokenContractFactory = await ethers.getContractFactory("ALocalnetLinkToken");
+  const localnetLinkTokenContract = await localnetLinkTokenContractFactory.deploy();
+  const localnetLinkTokenDeployedContract = await localnetLinkTokenContract.deployed();
+  process.stdout.write(getSuccessfulDeployMessage("ALocalnetLinkToken", localnetLinkTokenDeployedContract));
 
-  const linkTokenContractFactory = await ethers.getContractFactory("ALocalNetLinkToken");
-  const linkTokenContract = await linkTokenContractFactory.deploy();
-  const linkTokenDeployedContract = await linkTokenContract.deployed();
-  process.stdout.write(getSuccessfulDeployMessage("ALocalNetLinkToken", linkTokenDeployedContract));
+  const operatorContractFactory = await ethers.getContractFactory("Operator");
+  const operatorContract = await operatorContractFactory.deploy(localnetLinkTokenDeployedContract.address);
+  const operatorDeployedContract = await operatorContract.deployed();
+  process.stdout.write(getSuccessfulDeployMessage("Operator", operatorDeployedContract));
 
-  const oracleContractFactory = await ethers.getContractFactory("Oracle");
-  const oracleContract = await oracleContractFactory.deploy(linkTokenDeployedContract.address);
-  const oracleDeployedContract = await oracleContract.deployed();
-  process.stdout.write(getSuccessfulDeployMessage("Oracle", oracleDeployedContract));
-
-  // const testConsumerContractFactory = await ethers.getContractFactory("TestOracleHttp");
-  // const testConsumerContract = await testConsumerContractFactory.deploy();
-  // const testConsumerDeployedContract = await testConsumerContract.deployed();
-  // process.stdout.write(getSuccessfulDeployMessage("TestOracleHttp", testConsumerDeployedContract));
+  const localnetTestHttpContractFactory = await ethers.getContractFactory("ALocalnetTestHttp");
+  const localnetTestHttpContract = await localnetTestHttpContractFactory.deploy();
+  const localnetTestHttpDeployedContract = await localnetTestHttpContract.deployed();
+  process.stdout.write(getSuccessfulDeployMessage("ALocalnetTestHttp", localnetTestHttpDeployedContract));
 }
 
 main()
